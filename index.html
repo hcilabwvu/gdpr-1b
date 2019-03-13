@@ -1,1 +1,48 @@
-GDPR 1b
+<!DOCTYPE html>
+<html>
+<head>
+	<title>GDPR Interface 1B</title>
+	<script src="https://wzrd.in/standalone/formdata-polyfill"></script>
+	<script src="https://wzrd.in/standalone/promise-polyfill@latest"></script>
+	<script src="https://wzrd.in/standalone/whatwg-fetch@latest"></script>
+</head>
+<body>
+	<form name="submit-to-google-sheet">
+	  <input name="study" type="hidden" value='1B'>
+	  <input name="score" id="score" type="hidden" value='0'>
+	  E-mail
+	  <br>
+	  <input name="email" type="email" placeholder="E-mail" required>
+	  <br>
+	  Review
+	  <br>
+	  <textarea name="review1" placeholder="Review"></textarea>
+	  <br>
+	  <button>Verify</button>
+	  <div id="review_ok">
+	  	Thanks for your review, please click on the submit button.
+	  </div>
+	  <div id="review_change">
+	  	Thanks for your review, please write a second review in the textbox that is located below. Remember that the traffic, the GPS route, and the rates are not under the worker control, so please try to rewrite your review taking in account these considerations. Assume that the car was clean and the driver was respectful during the ride.
+	  </div>
+	  <br>
+	  Revised Review
+	  <br>
+	  <textarea name="review2" placeholder="Revised Review"></textarea>
+	  <br>
+	  <button type="submit">Submit</button>
+	</form>
+
+	<script>
+	  const scriptURL = 'https://script.google.com/macros/s/AKfycbzpQ5RgUo8YkP80fnn1zGu6FAGI-sAUz9hKP6Mb6KT3sFemDLKS/exec'
+	  const form = document.forms['submit-to-google-sheet']
+
+	  form.addEventListener('submit', e => {
+	    e.preventDefault()
+	    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+	      .then(response => console.log('Success!', response))
+	      .catch(error => console.error('Error!', error.message))
+	  })
+	</script>
+</body>
+</html>
